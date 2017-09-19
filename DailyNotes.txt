@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 ########################################################################################################################
 this part of notes is for the design of the python pjsip
 ------------------------------------------------------------------------------------------------------------------------
@@ -21,6 +22,32 @@ this part of notes is for the design of the python pjsip
 	------------------------------------------------------------------------------------------------------------------------
 	data:2017-9-18
 	python\pjsip\Qthread:
+=======
+
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+
+在python环境中安装pjsua的步骤 关键词：python pjsua
+1、下载最新的pjsip源码 http://www.pjsip.org/
+2、下载支持python3的pjsua源码并复制到pjsip相对应的位置https://github.com/mgwilliams/python3-pjsip
+3、用vs2015/vs2008打开pjsip,选择debuge/release 以及win32的编译方式
+4、将python_pjsua选择为启动项，并添加dirtx和python的include、lib到python_pjsua的工程环境
+		Add Python include directory (e.g. C:\Python24\include) to Visual Studio include directories.
+		Add Python library directory (e.g. C:\Python24\libs) to Visual Studio library directories.
+		C:\Python24\  #包含python.dll
+		DirectX\include
+		DirectX\Lib\X86
+5、编译python_pjsua
+6、Go to pjsip-apps\src\python directory
+   Run python setup-vc.py install (note that the installation script is setup-vc.py and not setup.py).
+   
+7、在python的环境下import pjsua
+
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+data:2017-9-18
+Qthread:
+>>>>>>> parent of 3ee6062... 2017-9-19
 
 		Qt 之 QTthread（深入理解）
 		PyQt 线程类 QThread使用详解
@@ -65,9 +92,45 @@ this part of notes is for the design of the python pjsip
 	
 	
 	
+<<<<<<< HEAD
+=======
+	1、import pyQt5.QtCore
+	2、新建一个class 继承 QtCore.QThread
+	    from PyQt4 import QtCore
+		class mythread(QThread):
+			  send=pyqtSignal(str,int)
+			  def __int__(self):
+				super(mythread, self).__init__()
+			  def setValue(self,state,number):
+				self.state=state
+				elf.number=number
+			  def run(self):
+				self.send.emit(self.state,self.number)
+	        -------------
+		#globle variable
+		workThread = mythread()
+		workThread.send.connect(get_function) 
+		-------------
+		#in other thread the workThread passed to the thread as myworkThread. 
+		myworkThread.setValue("ceshi", 123)  
+		myworkThread.start()
+		-------------
+
+    3、注意点
+	    thread需要是全局变量，因为如果在定义为局部变量，会在函数结束时自动销毁，从而使得线程的run函数未执行就结束
+------------------------------------------------------------------------------------------------------------------------
+
+
+date: 2017-9-19
+plantices:
+	1、根据官网下载设备管理客户端
+	2、根据官网的python脚本获取设备信息，需要循环不断的调用get_events()方法获取事件信息
+	3、phtronices sdk  
+>>>>>>> parent of 3ee6062... 2017-9-19
 	
 	
 	
+<<<<<<< HEAD
 	
 	
 	
@@ -129,6 +192,12 @@ this part of notes is for the kedacom
 	
 
 	
+=======
+	注意
+	    通过 样式-数字 可以将打出的字符变成倾斜
+		在 样式-文本 的环境下可以给公式打上空格
+		想要粗体并倾斜可以编辑 样式-定义-向量矩阵：勾上粗体和斜体，在使用过程中将输入的字符定义为向量矩阵即可实现字符效果
+>>>>>>> parent of 3ee6062... 2017-9-19
 
 		
     
