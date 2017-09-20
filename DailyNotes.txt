@@ -1,129 +1,194 @@
+this note is for the design of the python pjsip
 
-########################################################################################################################
-this part of notes is for the design of the python pjsip
-------------------------------------------------------------------------------------------------------------------------
-	python\pjsip\install
-	在python环境中安装pjsua的步骤
-	1、下载最新的pjsip源码 http://www.pjsip.org/
-	2、下载支持python3的pjsua源码并复制到pjsip相对应的位置https://github.com/mgwilliams/python3-pjsip
-	3、用vs2015/vs2008打开pjsip,选择debuge/release 以及win32的编译方式
-	4、将python_pjsua选择为启动项，并添加dirtx和python的include、lib到python_pjsua的工程环境
-			Add Python include directory (e.g. C:\Python24\include) to Visual Studio include directories.
-			Add Python library directory (e.g. C:\Python24\libs) to Visual Studio library directories.
-			C:\Python24\  #包含python.dll
-			DirectX\include
-			DirectX\Lib\X86
-	5、编译python_pjsua
-	6、Go to pjsip-apps\src\python directory
-	   Run python setup-vc.py install (note that the installation script is setup-vc.py and not setup.py).
-	   
-	7、在python的环境下import pjsua
-	------------------------------------------------------------------------------------------------------------------------
-	data:2017-9-18
-	python\pjsip\Qthread:
 
-		Qt 之 QTthread（深入理解）
-		PyQt 线程类 QThread使用详解
-		
-		1、import pyQt5.QtCore
-		2、新建一个class 继承 QtCore.QThread
-			from PyQt4 import QtCore
-			class mythread(QThread):
-				  send=pyqtSignal(str,int)
-				  def __int__(self):
-					super(mythread, self).__init__()
-				  def setValue(self,state,number):
-					self.state=state
-					elf.number=number
-				  def run(self):
-					self.send.emit(self.state,self.number)
-				-------------
-			#globle variable
-			workThread = mythread()
-			workThread.send.connect(get_function) 
-			-------------
-			#in other thread the workThread passed to the thread as myworkThread. 
-			myworkThread.setValue("ceshi", 123)  
-			myworkThread.start()
-			-------------
-		3、注意点
-			thread需要是全局变量，因为如果在定义为局部变量，会在函数结束时自动销毁，从而使得线程的run函数未执行就结束
-	------------------------------------------------------------------------------------------------------------------------
-	date: 2017-9-19
-	python\pjsip\plantices:
-		1、根据官网下载设备管理客户端
-		2、根据官网的python脚本获取设备信息，需要循环不断的调用get_events()方法获取事件信息
-		3、phtronices sdk  
-		
-		待完整。。。。。
-		
-########################################################################################################################	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-########################################################################################################################
-this part of notes is for the patent 	
 ------------------------------------------------------------------------------------------------------------------------
-	date: 2017-9-19
-	pdf转word：
-		1、百度下载“wmPDFzhcWord”----http://www.jb51.net/softs/397601.html
-		2、解压并将COMDLG32.OCX复制到文件夹C:\Windows\SysWOW64 --这是64位的电脑，32位的系统放在 c:\Windows\system32
-		3、以管理员的方式运行CMD 输入regsvr32 C:\Windows\SysWOW64\COMDLG32.OCX
-		4、运行完美PDF转换成Word转换器.exe
-		注意：
-			如果出现“DllRegisterServer的调用失败”则是没有以管理员运行CMD		
-	mathtype：
-		1、下载mathtype 并安装到自定义的路径上
-		2、在安装路径中打开mathtype.exe 既可以进行公式编辑
-		3、编辑好的公式可以复制到word上即可
-		
-		注意
-			通过 样式-数字 可以将打出的字符变成倾斜
-			在 样式-文本 的环境下可以给公式打上空格
-			想要粗体并倾斜可以编辑 样式-定义-向量矩阵：勾上粗体和斜体，在使用过程中将输入的字符定义为向量矩阵即可实现字符效果
-########################################################################################################################
-			
-			
-			
-			
-			
-			
-			
-			
-########################################################################################################################
-this part of notes is for the interesting 	
 ------------------------------------------------------------------------------------------------------------------------
-	date: 2017-9-19		
-	Get a picture（宫崎骏头像）
-		我与宫崎骏 https://www.duitang.com/blog/?id=509882939
-		设置了头像 并上传到百度云 百度云-个人资料-照片-20160108102243_hFRGU.jpeg
-########################################################################################################################
+python\pjsip\install
+在python环境中安装pjsua的步骤 关键词：python pjsua
+1、下载最新的pjsip源码 http://www.pjsip.org/
+2、下载支持python3的pjsua源码并复制到pjsip相对应的位置https://github.com/mgwilliams/python3-pjsip
+3、用vs2015/vs2008打开pjsip,选择debuge/release 以及win32的编译方式
+4、将python_pjsua选择为启动项，并添加dirtx和python的include、lib到python_pjsua的工程环境
+		Add Python include directory (e.g. C:\Python24\include) to Visual Studio include directories.
+		Add Python library directory (e.g. C:\Python24\libs) to Visual Studio library directories.
+		C:\Python24\  #包含python.dll
+		DirectX\include
+		DirectX\Lib\X86
+5、编译python_pjsua
+6、Go to pjsip-apps\src\python directory
+   Run python setup-vc.py install (note that the installation script is setup-vc.py and not setup.py).
+   
+7、在python的环境下import pjsua
+
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+data:2017-9-18
+python\pjsip\Qthread:
+
+	Qt 之 QTthread（深入理解）
+	PyQt 线程类 QThread使用详解
+	
+	1、import pyQt5.QtCore
+	2、新建一个class 继承 QtCore.QThread
+	    from PyQt4 import QtCore
+		class mythread(QThread):
+			  send=pyqtSignal(str,int)
+			  def __int__(self):
+				super(mythread, self).__init__()
+			  def setValue(self,state,number):
+				self.state=state
+				elf.number=number
+			  def run(self):
+				self.send.emit(self.state,self.number)
+	        -------------
+		#globle variable
+		workThread = mythread()
+		workThread.send.connect(get_function) 
+		-------------
+		#in other thread the workThread passed to the thread as myworkThread. 
+		myworkThread.setValue("ceshi", 123)  
+		myworkThread.start()
+		-------------
+
+    3、注意点
+	    thread需要是全局变量，因为如果在定义为局部变量，会在函数结束时自动销毁，从而使得线程的run函数未执行就结束
+------------------------------------------------------------------------------------------------------------------------
+date: 2017-9-19
+python\pjsip\plantices:
+	1、根据官网下载设备管理客户端
+	2、根据官网的python脚本获取设备信息，需要循环不断的调用get_events()方法获取事件信息
+	3、phtronices sdk  
+	
+	待完整。。。。。
+	
+pdf转word：
+    1、百度下载“wmPDFzhcWord”----http://www.jb51.net/softs/397601.html
+	2、解压并将COMDLG32.OCX复制到文件夹C:\Windows\SysWOW64 --这是64位的电脑，32位的系统放在 c:\Windows\system32
+	3、以管理员的方式运行CMD 输入regsvr32 C:\Windows\SysWOW64\COMDLG32.OCX
+	4、运行完美PDF转换成Word转换器.exe
+	注意：
+		如果出现“DllRegisterServer的调用失败”则是没有以管理员运行CMD
 		
+mathtype：
+	1、下载mathtype 并安装到自定义的路径上
+	2、在安装路径中打开mathtype.exe 既可以进行公式编辑
+	3、编辑好的公式可以复制到word上即可
+	
+	注意
+	    通过 样式-数字 可以将打出的字符变成倾斜
+		在 样式-文本 的环境下可以给公式打上空格
+		想要粗体并倾斜可以编辑 样式-定义-向量矩阵：勾上粗体和斜体，在使用过程中将输入的字符定义为向量矩阵即可实现字符效果
 		
+Get a picture
+	我与宫崎骏 https://www.duitang.com/blog/?id=509882939
+	设置了头像 并上传到百度云 百度云-个人资料-照片-20160108102243_hFRGU.jpeg
+
+kedacom（科达）\内网测试
+    将数据抓包文件上传到百度云 公司项目-应急指挥系统-苏州-专网内网建设-镜像抓包
+	以及省公司开设的端口信息存在 公司项目-应急指挥系统-苏州-专网内网建设-镜像抓包-2648774888720219.jpg
+	
+------------------------------------------------------------------------------------------------------------------------
+date：2017-9-20
+python\tensorflow\ASR:
+    tensorflow 不可以安装在32位的系统上
+	如何高效的从文件中获取数据：
+		编写了一个read_csv.py 在other的路径子下
+		参考：ttensorflow载入数据的三种方式、ensorflow 读取数据之SCV格式、如何正确从csv的数据读入tensoflow、python读取并写入csv文件、python读取csv到矩阵中
+		全部加载：
+			利用pickle.load() 内存持续增加1.7G 8911条数据 运行时python为5G
+			从pickle 装载的数据（内存）一个16batch 需要7s（在suda-pc上运行的结果）
+		如何一边读一边写入：
+			CSV：---------------------------------------------------------------------------------------------------------------------
+				csv文件格式是 number,number,number..,每一个逗号隔开的就是一列
+				同时保证每一行的列数相同，即是一个向量而不是列表
+				[1,2,3]
+				[4,5,6]
+				在csv文件中就是2行3列
+				normal：------------------------------------------------------------------
+				    writer：
+						data=[[...],[...],[...]]
+						csvfile=open(mydata,'w',newline="")
+						writer=csv.writer(csvfile)
+						m=len(data)
+						print(m)
+						for i in range(m):
+							writer.writerow(data[i])
+						csvfile.close()
+					
+					read：
+						with open(mydata,'r') as csvfile:
+							reader=csv.reader(csvfile)
+							for item in reader:
+								print(item)
+				
+				numpy:--------------------------------------------------------------------
+					writer：
+						my_martix=np.loadtxt(open('1.csv','rb'),delimiter=",",skiprows=0)	
+					read：					
+						np.savetxt('1.csv',my_martix,delimiter=",")
+					-----------------------------------------------------------------------
+				
+			QueueRunner:-------------------------------------------------------------------------------------------------------------------
+				tf.train函数添加QueueRunner到数据流图中，当训练时，需要调用tf.train.start_queue_runner函数，否则数据流图将一直挂起，
+				tf.train.start_queue_runner函数将会启动输入管道的线程，并填充样本到队列中，以便于tf.train从队列中提取数据
+				1、创建文件queue：
+					file_name=[filename1,filename2..]
+					file_queue=tf.train.string_input_producer(file_name,shuffle=False)
+						shuffle:文件的出对入队不是随机的
+						每次read数据是从文件队列中的第一个文件中读取一行内容，读取完该文件就会出对并到达队列底部
+				2、设置读取的方式以csv为例
+					reader=tf.TextLineReader()
+					key,value=reader.read(file_queue   -----读取一行
+					label1,label2,label3,label4,label5,label6=tf.decode_csv(value,record_defaults=[[1],[1],[1],[1],[1],[1]]) --读取一行的几列
+						csv文件格式是 number,number,number..,每一个逗号隔开的就是一列，在读取的时候定义读取格式时是要根据列数[[1],[1],[1]..]
+						同时保证每一行的列数相同，即是一个向量而不是列表
+						[1]是读取后转成int
+				3、设置batch方式读取数据
+					batch_label1..batch_label6=tf.train.batch([label1,label2,label3,label4,label5,label6],batch_size=4,capacity=10,num_threads=1,allow_smaller_final_batch=4)		
+						tf.train.batch是按顺序读取文件中的数据
+						batch_label1是一列4行的数据
+						当达到文件底部时，将会迭代到文件头部
+							[[25 26 27 28 29 30]
+							 [31 32 33 34 35 36]
+							 [ 1  2  3  4  5  6]
+							 [ 7  8  9 10 11 12]]
+				4、start
+				    init_all_varible()
+					coord=tf.train.Coordinator()
+					thread=tf.train.start_queue_runners(coord=coord)
+				5、获取数据
+				    for i in epoch
+						feed_dict={x:batch_label1}
+						
+				其中第三步骤是根据实际的文件格式定义
+				这其实就是用线程一行一行读取文件中的数据，并通过queue的方式反馈到主线程，同时设置queue的长度
+						
+					
+					
+					
+					
+				
+				
+			
+	
+	关于shape
+		tf.cast(x,dtype,name=None)可以将矩阵转换成dtype格式
+		tf.shape(x)可以获tensor的shape
+		(input.get_shape()).as_list()可以将tensor的shape转换成list格式
+		e=np.array（） e.shape（）获取shape
+	
+Anaconda	
+	几个常用命令：
+		新建环境：conda create --name py35 python=3.5 anaconda
+		激活环境：activate py35
+		退出环境：deactivate
+		在环境中进入python： python3-pjsip
+		在python中退出到环境： exit（）
+		列出环境：conda info --envs
+		删除环境：conda remove --name py35 --all
+	
+	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-########################################################################################################################
-this part of notes is for the kedacom 
-------------------------------------------------------------------------------------------------------------------------	
-	kedacom（科达）\内网测试
-		将数据抓包文件上传到百度云 公司项目-应急指挥系统-苏州-专网内网建设-镜像抓包
-		以及省公司开设的端口信息存在 公司项目-应急指挥系统-苏州-专网内网建设-镜像抓包-2648774888720219.jpg
-########################################################################################################################	
+
+	
 	
