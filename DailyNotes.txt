@@ -57,6 +57,7 @@ date: 2017-9-19
 python\pjsip\plantices:
 	1、根据官网下载设备管理客户端
 	2、根据官网的python脚本获取设备信息，需要循环不断的调用get_events()方法获取事件信息
+		connecting to hub rest api in python
 	3、phtronices sdk  
 	
 	待完整。。。。。
@@ -186,6 +187,55 @@ Anaconda
 		在python中退出到环境： exit（）
 		列出环境：conda info --envs
 		删除环境：conda remove --name py35 --all
+		
+--------------------------------------------------------------------------------------------------------------------------------------------
+2017-9-21
+tensorflow\ASR：
+	字典反转：word_class={v:k for k,v in word_class.items()}
+	逐行读取数据：(csv格式：是一条数据一行)
+		with open(file_name) as read:
+			read.readline()
+	读取文档的行数：
+		count = -1
+		for count, line in enumerate(open(save_labels, 'rU')):
+			 pass
+		count += 1
+		print(count)
+--------------------------------------------------------------------------------------------------------------------------------------------		
+2017-9-22
+python\pjsip\plantices:
+	Accessing USB devices via HID：https://developer.plantronics.com/article/accessing-usb-devices-hid
+		via the usb to get the event of plantronics
+	Calisto p240 用的是自定义的协议，需要联系官方网站
+	
+		
+python\pjsip\pjsua
+    参考pjusa文档
+		
+python\usb	
+	一、通过usb.core.find()发现设备，通过write&read函数实现通讯
+		具体过程大致如下：
+		device = usb.core.find(idVendor=_vend, idProduct=_prod)
+
+		# 内核驱动是否处于活动状态
+		if device._kernel_driver_active(0): # interface is int
+		try:
+		# 分离内核驱动（不晓得这样翻译是否妥当）
+		device.detach_kernel_driver(0)
+		except usb.core.USBError as e:
+		sys.exit("Could not detatch kernel driver: %s" % str(e))
+
+		# ep地址解析：例如0x02--> 0000 0010 表示传输方向为OUT（第一位为0, 若为1则为IN） 0010为2 即为EP2,所以该地址意思为为: EP2且传输方向为OUT
+		ep = device[0][(0,0)][1].bEndpointAddress
+		# sendlist为我要发送的列表 例如[0x01, 0x02, 0x03, 0x04], 不能直接发送，要先转换成array形式，如下所示：
+		my_data = array.array('B',sendlist)
+		# PC端向USB Device发送信息 write
+		device.write(ep, my_data)
+		
+python\usb\HID
+
+
+
 	
 	
 		
