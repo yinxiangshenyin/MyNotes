@@ -54,7 +54,7 @@ python\pjsip\Qthread:
 	    thread需要是全局变量，因为如果在定义为局部变量，会在函数结束时自动销毁，从而使得线程的run函数未执行就结束
 ------------------------------------------------------------------------------------------------------------------------
 date: 2017-9-19
-python\pjsip\plantices:
+python\pjsip\plantronics:
 	1、根据官网下载设备管理客户端
 	2、根据官网的python脚本获取设备信息，需要循环不断的调用get_events()方法获取事件信息
 		connecting to hub rest api in python
@@ -204,7 +204,7 @@ tensorflow\ASR：
 		print(count)
 --------------------------------------------------------------------------------------------------------------------------------------------		
 2017-9-22
-python\pjsip\plantices:
+python\pjsip\plantronics:
 	Accessing USB devices via HID：https://developer.plantronics.com/article/accessing-usb-devices-hid
 		via the usb to get the event of plantronics
 	Calisto p240 用的是自定义的协议，需要联系官方网站
@@ -296,7 +296,13 @@ tensorflow\ASR：
 python
 	 l=[]和l=None是给l赋一个新的值，不影响原来数组的内容
 	 del l[:]，才是测地清除内存
-			
+	 
+
+--------------------------------------------------------------------------------------------------------------------------------------------		
+207-9-25
+python\pjsip\plantronics:
+	interacting with the plantronics devices without the sdk:connecting the plantronics via the HID
+	plantrinics SDK : rest servce: connecting the plantroincs via the hub
 		
 		
 
