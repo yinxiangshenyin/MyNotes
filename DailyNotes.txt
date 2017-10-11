@@ -80,7 +80,7 @@ mathtype：
 		在 样式-文本 的环境下可以给公式打上空格
 		想要粗体并倾斜可以编辑 样式-定义-向量矩阵：勾上粗体和斜体，在使用过程中将输入的字符定义为向量矩阵即可实现字符效果
 		
-Get a picture
+图片：
 	我与宫崎骏 https://www.duitang.com/blog/?id=509882939
 	设置了头像 并上传到百度云 百度云-个人资料-照片-20160108102243_hFRGU.jpeg
 
@@ -162,15 +162,7 @@ python\tensorflow\ASR:
 						feed_dict={x:batch_label1}
 						
 				其中第三步骤是根据实际的文件格式定义
-				这其实就是用线程一行一行读取文件中的数据，并通过queue的方式反馈到主线程，同时设置queue的长度
-						
-					
-					
-					
-					
-				
-				
-			
+				这其实就是用线程一行一行读取文件中的数据，并通过queue的方式反馈到主线程，同时设置queue的长度			
 	
 	关于shape
 		tf.cast(x,dtype,name=None)可以将矩阵转换成dtype格式
@@ -262,7 +254,7 @@ tensorflow\ASR：
 	
 	自然语言处理：
 		自然语言处理中的词向量（word Embedding）方法对传统语言模型具有很大的提升
-	word2Vec：（creatcodebuild）youtube
+	word2Vec：（creatcodebuild）youtube （github CreatCodeBuild）
 	
 		什么是word2vec
 			注重语义的分析，
@@ -271,7 +263,7 @@ tensorflow\ASR：
 			设置滑窗的大小，计算在滑窗中的的词汇出现后周围几个词汇出现的概率，一个词的语义与周围的词有恨到的关系
 				简答的网络搭建：
 					首先先给词进行编码：00001-10000
-					建立一个两层的全连接神经网络，输入就是词汇码，输入也是词汇码，中间隐藏层300个
+					建立一个两层的全连接神经网络，输入就是词汇码，输入也是词汇码，中间隐藏层300个，输出的神经网络是softmax激励函数
 					建立滑窗，大小为5，滑窗中间的词就是输入，而其他词汇就是label，相当于一个输入有四个label
 					训练好后，输入层与隐藏层之间的权重即为词向量，因为词汇编码是0/1 只有1的位置所对应的权重是激活的，所以1位置对应的权重就是该词的权重
 					这就是为什么只有一个隐藏层的意义，其中隐藏层的神经元个数就是特征个数
@@ -289,7 +281,14 @@ tensorflow\ASR：
 			非监督学习可以理解为：寻找一个set（集合）将相似的数据放在一个set中 
 			
 			raw->Word2vec->feature（vectore）
-		Word2vec正篇（上） count based
+		Word2vec 正篇（上） count based 很容易理解和运算，但是需要很大的空间存储
+		word2vec 正篇（中）：Skip Gram
+			提升训练速度：
+				因为单词的类别太多会造成计算太过复杂
+		word2vec 正篇（下）：Skip Gram 的几个优化
+			subsimpling：词汇出现的概率高，则保留的概率大，用以减少训练样本
+			Negative sampling：background修改的W是有选择的
+			Hierarchy softmax：
 
 		
 	Some songs never get old..﻿
@@ -303,13 +302,297 @@ python
 python\pjsip\plantronics:
 	interacting with the plantronics devices without the sdk:connecting the plantronics via the HID
 	plantrinics SDK : rest servce: connecting the plantroincs via the hub
+
+--------------------------------------------------------------------------------------------------------------------------------------------			
+tensorflow\ASR
+	语音库：
+		THCHS-30：一个免费的中文语料库   http://blog.csdn.net/sut_wj/article/details/70662181
+		最好用的 AI 开源数据集(涵盖计算机视觉、NLP、语音等 6 大类）https://zhuanlan.zhihu.com/p/25887325?utm_source=tuicool&utm_medium=referral
+	如何提高识别率：
+		1、以词汇的方式来训练网络而不是一单独的单词来训练，就像打字，一个一个的打字是很容易打错的，但是如果以词汇的方式打字的话准确率将大大提升
+			输入法的特点:
+				以同音的方式将单词集结起来
+				同时以同音词汇中出现组合概率最大的作为结果
+		2、在以上的基础上，再结合语义分析的算法，计算语整条；句最佳的解码
+youtube：
+	090617 訪 王孟源：當台灣被統一（50%版） https://www.youtube.com/watch?v=qYtR6ds_lrw
+--------------------------------------------------------------------------------------------------------------------------------------------
+tensorflow\ASR：
+	如何提高识别率：
+		语音识别如何处理汉字中的「同音字」现象？https://www.zhihu.com/question/59050053
+		语音识别中如何提高同音异形字的识别准确率？https://www.zhihu.com/question/47362595
+		语音识别的痛点在哪，从交互到精准识别如何做？http://blog.csdn.net/ffmpeg4976/article/details/52348412
 		
+	    关于将汉字转换成拼音来识别：
+			因为人类听到的是拼音，再根据拼音的组合来实现文字描述
+			python 文字转拼音-网页
+			python 拼音组合转文字-网页 
+			 将文字转换成拼音，因为汉字有很多，汉字组合也有很多，而且汉字组合也在不断更新，但是始终不变的是汉字的读音，大概338种拼音组合；
+			 而且拼音是直接与语音直接联系的，比较有实际训练的意义
+			 语音文件很少，但是文字文件很多，这就需要通过神经网络实现语音的转换成拼音，拼音根据自然语言处理的方式转换成文字
+			 同时RNN是前一个状态影响后一个状态，后面的状态不能修改前面的状态，这与理解上下文的盖帘相冲突
+		关于拼音转汉字：
+			隐马尔科夫模型python实现简单拼音输入法：http://www.cnblogs.com/lrysjtu/p/5343254.html
+				拼音输入法中可观察的参数就是拼音，隐含的参数就是对应的汉字。
+			spark处理大规模语料库统计词汇：http://www.cnblogs.com/lrysjtu/p/5361674.html
+		猜想：
+			使用CNN+CTC可以深度挖掘语音信号中频域的信息，根据频域信息生成拼音时间序列
+			拼音时间序列与文字时间序列通过RNN实现翻译的功能
+				隐马尔可夫模型当前状态至只与前一个状态有关，而关于输入法和翻译是需要与前几个状态有关系同时与后面的状态也有关系，鉴于此，需要RNN实现“翻译”的功能
+				可以通过电影的台词来训练RNN以获得更好的日常用语的模型
+				
+			此情况极其适合在语音库比较少的情况下训练出好的语音识别网络
+	RNN：
+		Tensorflow 20.2 RNN lstm 循环神经网络 (分类例子) (神经网络 教学教程tutorial) https://www.youtube.com/watch?v=IASyrQamTQk
+		Tensorflow 20.3 RNN lstm (regression 回归例子) (神经网络 教学教程tutorial) https://www.youtube.com/watch?v=nMLPYT_SMRo
+		如果是预测这段语言的情感可以用RNN最后一个state的数据来预测，参考Tensorflow 20.2 RNN lstm 循环神经网络 (分类例子)
+		RNN：可以用来作什么 https://www.youtube.com/watch?v=EEtf4kNsk7Q
+		需要将文字wordenbeding
 		
+--------------------------------------------------------------------------------------------------------------------------------------------
+2017-9-28
+tensorflow\ASR\RNN:
+	电影字幕可以用来训练rnn，用txt可以打开字幕文件
+	python3：(unicode error) 'utf-8' codec can't decode：只用notepad++打开test.py >> 菜单栏Encoding（编码）>> Convert to UTF-8（转化成utf-8）
+	去掉换行符：line.strip('\n'）
+	去掉特殊字符 line = re.sub("[\s+\.\!\/_,$%^*(+\"\']+|[+——！，。？?、~@#￥%……&*（）]+", "",line)
+	通过爬虫新闻获取当下热门的词汇
+	
+creating a language translition model using sequence to sequence learning approach:
+	what if input sequence and output sequence have different lengths?
+	in NLP the length of input and output are totally different,not only in the between of input and output,but also among the input
+		the sequence to sequence network will can deal the problem
+			they creat a model which consists of two sperate recurrent neural network callde encode and decode respectively
+				because we can not compute the output just by one network which has same lengeh with the input size
+				so we need to use the first network to encode the input to some kind of "middle sequece",then the second network will decode the middle sequence to output
+					the middle sequence will repeat n times ,which the n is the output size
+		    the first step: data processing
+				zero padding the input to same length
+				chage the string to the list of word ['你','好','吗']
+				creat the dict by the all word
+				transliate the input to digit sequece
+				transliate teh digit sequence to list [2]-[0,0,1,0,0,0,0,0,0]
+			
+			second step:design the encode network
+				the encode is simple but just one hidden layer which is far from enough
+paper:Machine Translation Using Recurrent Neural Networks
+	--------------------------------------
+	We first compute our word embeddings for the input one hot word vectors. 
+	Then we send in the embedded words to translate. Our (embedded word vector) is multiplied by some weight matrix W(hx). 
+	Our previous calculated hidden state (which is the previous output of RNN node) is multiplied by a different weight matrix W(hh). 
+	The results of these 2 multiplications are then added together and non linearity like Relu/tanh is applied. This is now our next hidden state h.
+    ---------------------------------------
+	Also note that our sentence could be different lengths so we must also have a stop token (e.g a full stop) which indicates we have reached the end of the sentence.
+	We hope that our model will learn when to predict this stop token for the output. This stop token is basically just an extra 'word' in our training data.
+	---------------------------------------
+	A softmax is then applied to this which gives us our final output. This final output tells you what word vector was predicted at that time step.
+	so the output is one-hot encoding?
+	---------------------------------------
+	More improvements
+		Make it deeper! Add more RNN layers to your model.
+		Maybe train a bidirectional encoder. So take the hidden state not only from the last hidden layer time step but also from the next hidden layer time step.
+		An alternative to training a bidirectional encoder is to train the encoder in reverse order.
+		 What this means is if normally you train with words A,B,C go to X Y we instead train with words C,B,A go to X, Y.
+		 This is a simpler optimisation problem as you bring words that are being translated closer together hence less vanishing gradient issues. 
+		 (This only works if languages align well like French and English)
+Tutorial:Neural Machine Translation (seq2seq) Tutorial
 
 
-	
-	
+由简至繁，是精；由繁入简，是悟
+
+---------------------------------------------------------------------------------------------------------------------------------
+2017-10-10
+linux 韩顺平linux视频教程：
+	基础教程：
+		命令：
+			关机 shutdown（-h now / -r now=reboot）
+			显示图形界面 startx
+			注销用户 exit
+			  
+		vi 编辑器：
+			vi hello.txt 新建或者编辑文件
+			输入 i 进入编辑模式
+			按esc进入命令行模式
+			wq 退出并保存 q！不保存
+			
+			ls 可以查看当前目录下的所有文件 ls -l 可以查看文件的详细的信息 ls -a 显示隐藏文件  ls -al 则两个功能都可以实现
+			
+			javac 文件：编译java文件	
+			java 文件名（not .class）可以运行java程序
+			
+			gcc 文件名 可以编译cpp文件 gcc -o my1 hello.cpp 可以将编译后的文件保存为my1.out
+			./a.out 运行编译后的cpp文件
+			
+		目录：根目录层级方式管理文件‘/’
+			root：
+				root用户的相关文件
+			home：
+				存放普通用户的相关文件
+			bin：
+				存放普通命令的目录
+			sbin：
+				需要一定权限才能使用的命令			
+			mnt：
+				默认挂在光驱和软驱的目录
+			etc：
+				配置相关的文件，环境变量的配置，mysql的等配置
+			var：
+				存放经常变化的文件，缓存数据使用
+			boot：
+				系统引导文件，删除的话系统就将打不开
+			usr：
+				软件默认安装的文件夹
+			显示当前的路径：pwd
+			自动补全：两次tab键
+		用户管理：
+			root 用户才能管理用户：
+			useradd 用户名
+			passwd 用户名 给用户设置密码
+			
+			userdel 用户名 删除用户
+			userdel -r 用户名 删除用户以及用户的主目录
+			
+		常用命令：
+		    init [0,1,2,3,4,5,6]
+			运行级别：常用3号模式
+				0：关机
+				1:单用户
+				2:多用户没有网络服务
+				3:多用户有网络服务
+				4：系统未使用保留给用户
+				5：图形界面
+				6：系统重启
+			修改运行级别：/etc/inittab 的id:5:initdefault 修改id的数字
+			centos 7：systemctl set-defualt multi-user.target
+					  systemctl set-defualt graphical.target
+					  
+		    应该用root的级别才能修改开机级别
+			
+			如果发现运行级别出现逻辑错误的时候，在开机，选择系统的界面上按e 进入grub引导界面 选择第二行输入e，在最后输入‘空格’+1【单用户级别】，并按 b 进入系统后修改 运行级别也可以修改密码
+			
+			mkdir 建立目录
+			rmdir 删除空目录
+			
+			touch 建立空文件
+			cp 复制文件
+			mv 移动文件
+			rm 删除文件
+			
+			more 显示文件的内容，带分页 空格键 向后翻页，pagup +ctrl 可以翻页 
+			less 显示文件内容 带分页 
+			grep 在文本中查询内容 grep -n “关键词” 文件名 可以显示行数
+			| 管道命令 把上一个命令的结果交给| 后面的命令处理
+			
+			man：help的功能
+			
+			find： find / -name 文件名，从/文件夹下面开始寻找文件，并返回文件目录
+			
+			
+		    命令>文件名 将命令的结果存储到文件中 覆盖
+			命令 >> 文件名 将结果追加到文件的结尾
+			
+		文件权限：
+			ls -ahl 查看文件所在的组
+			
+			groupadd 组名  建立用户组
+			查看系统中所有组的信息 cat /etc/group 组名+x+ID
+			useradd -g 组名 用户 将用户添加到组中
+			查看系统中所有用户的信息 cat /etc/passwd
+			
+			usermod g 组名 用户名 可以修改用户所在组
+			
+			chown 可以修改文件的所有者
+			
+			-rw-r--r--  
+				-:文件的类型：
+					-：普通文件
+					d：文件夹
+					i：链接
+				rw-：文件的所有者对该文件的权限
+					r；可读（4）
+					w: 可写（2）
+					x：可执行（1）
+				r--：文件所在组队该文件的权限
+				r--：其他组的用户对该文件的权限
+			
+			修改文件访问权限：
+				不同的用户不可以cd到其他用户的主目录下
+				文件夹属性：
+					drwx------：
+						d：directory 代表文件夹
+						rwx：所属的用户可以读写
+						------：其他用户没有访问的权限
+			chomd 777 文件对象：
+				第三个7 对所有用户的权限
+				第二个7 对所在组的用户的权限
+				第一个7 对所属用户的权限
+			
+		桌面下的快捷键：
+			GNOME下也是Alt+F2，输入gnome-terminal
+ 
+			如果桌面有terminal 的话 ，直接用上下键就可以了
+
+			Alt + F1 类似Windows下的Win键，在GNOME中打开”应用程序”菜单(Applications)
+			Alt + F2 类似Windows下的Win + R组合键，在GNOME中运行应用程序
+			Ctrl + Alt + D 类似Windows下的Win + D组合键，显示桌面
+			Ctrl + Alt + L 锁定桌面并启动屏幕保护程序
+			Alt + Tab 同Windows下的Alt + Tab组合键，在不同程序窗口间切换
+			PrintScreen 全屏抓图
+
+			Alt + PrintScreen 当前窗口抓图
+			Ctrl + Alt + → / ← 在不同工作台间切换
+			Ctrl + Alt + Shift + → / ← 移动当前窗口到不同工作台
+			Ctrl+Alt+Shift+Fn 终端N或模拟终端N(n和N为数字1－6)
+			Ctrl+Alt+Shift+F7 返回桌面
+			Ctrl+Alt+Shift+F8 未知（终端或模拟终端）
+			窗口操作快捷键
+			Alt + F4 关闭窗口
+			Alt + F5 取消最大化窗口 (恢复窗口原来的大小)
+			Alt + F7 移动窗口 (注: 在窗口最大化的状态下无效)
+			Alt + F8 改变窗口大小 (注: 在窗口最大化的状态下无效)
+			Alt + F9 最小化窗口
+			Alt + F10 最大化窗口
+			Alt + Space 打开窗口的控制菜单 (点击窗口左上角图标出现的菜单）
+			应用程序中的常用快捷键
+			下面这些并不适用于所有程序。可以和Windows下的快捷键类比下：
+			Ctrl+N 新建窗口
+			Ctrl+X 剪切
+			Ctrl+C 复制
+			Ctrl+V 粘贴
+			Ctrl+Z 撤销上一步操作
+			Ctrl+Shift+Z 重做刚撤销的一步操作
+			Ctrl+S 保存
+			文件浏览器
+			Ctrl+H 显示隐藏文件（切换键）
+			Ctrl+T 新建标签
+			Ctrl+Page Up 上一个标签
+			Ctrl+Page Down 下一个标签
+			Alt+N 切换到第N个标签（N为数字）
 		
+		安装java开发环境
+			挂载：
+				linux系统添加对系统之外的文件访问，需要将文件关联到系统上的某一个目录下，关联操作即挂载，此目录为挂载点，
+					将需要的文件打包成iso文件，并在虚拟机上的cd-rom添加iso文件
+					moumt /mnt/cdrom/
+						激活cd并挂载到cdrom中
+					umoumt /mnt/cdrom/ 
+						解除挂载
+				虚拟机可以通过虚拟机设置中的共享文件夹的方式访问windows中的文件夹
+			    将安装文件拷贝到home目录中，cp
+		虚拟机翻墙：
+			查看win电脑的ip地址
+			设置虚拟机的网络连接为 NAT模式，用于共享主机的ip地址
+			开机linux系统
+			设置linux 系统的网络-代理-手动-填写win7的ip地址 以及 shadowsocks的代理端口1080
+			
+			
+				
+			
+			
+			
+			  
+
+
 
 	
 	
