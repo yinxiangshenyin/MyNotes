@@ -587,7 +587,22 @@ linux 韩顺平linux视频教程：
 			
 			
 				
-			
+-------------------------------------------------------------------------------------------------------
+droupout：理解dropout
+	原理：强迫一个神经元与随机挑选出来的其他神经元共同工作，达到最好的效果，削弱神经元节点之间的相互依赖，提高神经元的泛化的能力
+	一般droupout设置为0.5效果最好。可以缩短训练的时间，并且提高训练的准确度。
+	It was then mainly substituted by batch normalization
+	
+	When you calculate the accuracy and validation, you need to manually set the keep_probability to 1.0 
+	so that you don't actually drop any of your weight values when you are evaluating your network.
+	If you don't do this, you'll essentially miscalculate the value you've trained your network to predict thus far.
+	This could certainly negatively affect your acc/val scores. Especially with a 50% dropout rate.
+	
+rnn：
+	解读tensorflow 之 rnn ：http://blog.csdn.net/mydear_11000/article/details/52414342
+tensorflow：api文档
+	http://www.apimirror.com/tensorflow~python/tf
+	
 			
 			
 			  
