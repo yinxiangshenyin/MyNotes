@@ -475,8 +475,12 @@ linux 韩顺平linux视频教程：
 			
 			touch 建立空文件
 			cp 复制文件
+			    cp -rf 复制文件夹
 			mv 移动文件
 			rm 删除文件
+				rm -f 删除文件
+				rm -rf 删除文件夹
+			ln  -s 原 目标 建立原的快捷方式
 			
 			more 显示文件的内容，带分页 空格键 向后翻页，pagup +ctrl 可以翻页 
 			less 显示文件内容 带分页 
@@ -601,7 +605,94 @@ droupout：理解dropout
 rnn：
 	解读tensorflow 之 rnn ：http://blog.csdn.net/mydear_11000/article/details/52414342
 tensorflow：api文档
-	http://www.apimirror.com/tensorflow~python/tf
+	http://www.apimirror.com/tensorflow~python/	
+	
+-------------------------------------------------------------------------------------------------------
+ssh ：linux 默认安装了sshd的服务，并且默认开机启动
+	在linux 中安装ssh客户端，启动连接到linux服务器，设置的端口是22，linux允许多个用户连接到22的端口
+	ssh 可以实现文件的上传和下载，ssh客户端有相应的功能
+top：可以查看系统的cpu 内存 进程的运行情况 top
+date:可以查看当前的系统时间，也可以设置系统的时间
+cal：可以查看日历
+
+netstat：显示网络的统计信息
+	netstat  -an 按照端口顺序显示信息
+	netstat -anp 显示进程号 kill 进程号 可以杀掉进程
+traceroute 可以查看包的完整的路由 traceroute IP地址，查看到该地址的路由
+route：查看路由表
+
+zip unzip：
+	zip aa.zip 文件名
+	zip aa.zip 文件名、文件名、文件名
+	zip aa.zip 文件夹路径
+安装androidstudio：
+	安装sdk tool
+	教程：http://blog.csdn.net/budf01/article/details/53694177
+	wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz 
+	安装sdk：
+	sudo yum install zlib.i686 ncurses-libs.i686 bzip2-libs.i686
+如何写好一个程序：
+	可以正确运行
+	容易理解
+		代码一定要规范
+		越简单越好
+-----------------------------------------------------------------------------------------------------------
+python\lambda:
+	g=lambda x:x+1
+	g(1) = 2
+	
+	def fun(x)
+		return x+1
+python\map:
+	li=[1,2,3]
+	map(lambda x:x+1,li)
+	return [2,3,4]	
+	
+python\filter:
+	对序列进行筛选
+	filter(lambda x:x>2,li)
+	return [3]
+------------------------------------------------------------------------------------------------------------
+android sdk managerment：
+	超级ping：网站-www.ping.chinaz.com 在域名中输入g.cn 获得一系列的地址，选择一个地址 在sdk managerment 中设置 proxy的ip和端口（80）
+	
+tensorflow\function\sparse_softmax_cross_entropy_with_logits(logit,label)
+	label=[batch_size,]
+	logit=[batch_size,class_number]
+	其中 logit 为神经网络直接输出，不需要经过sotfmax层，因为该函数内部会进行sotfmax
+	
+	eg:
+	class_number=5
+	label=[2,4,3]
+	logit=[[0,0,1,0,0],[0,0,0,0,1],[0,0,0,1,0,0]]
+	
+tensorflow\funcition\transpose：
+	x=[[1,2,3],
+		[4,5,6]]
+	y=tf.transport(x)  tf.transport(x,perm=[1,0])
+	y:[[1,4],
+		[2,5],
+		[3,6]]
+
+tensorflow\function\reshpe:
+	x=[1,2,3,4,5,6]
+	y=tf.reshape(x,[2,3])
+		y:[[1,2,3],[4,5,6]]
+	x=[[1,2,3],[4,5,6]]
+	y=tf.reshape(x,[3,2])
+		y:[[1,2],[3,4],[5,6]]
+		
+几篇关于machine translation的文章：
+http://blog.csdn.net/u011414416/article/details/51048994
+
+用 TensorFlow 可以做什么有意思的事情？
+https://www.zhihu.com/question/46495381/answer/203066958
+
+基于RNN的语言模型与机器翻译NMT----good 
+http://blog.csdn.net/smallflyingpig/article/details/73729914
+	
+	
+
 	
 			
 			
