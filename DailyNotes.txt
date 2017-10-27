@@ -720,7 +720,24 @@ inpress：
 	雨水比我双手还接近你
 	我献上最诚心的祝福
 	祝福你过着幸福的让我嫉妒的生活
+	
+几个很好的搜索网站：
+github csdn 知乎 quora stackflow
 
+机器
+train_loss and test_lost:
+	train loss 不断下降，test loss不断下降，说明网络仍在学习;
+	train loss 不断下降，test loss趋于不变，说明网络过拟合;
+	train loss 趋于不变，test loss不断下降，说明数据集100%有问题;
+	train loss 趋于不变，test loss趋于不变，说明学习遇到瓶颈，需要减小学习率或批量数目;
+	train loss 不断上升，test loss不断上升，说明网络结构设计不当，训练超参数设置不当，数据集经过清洗等问题。
+	
+常用的lose 函数：
+http://blog.csdn.net/hongxue8888/article/details/77159772
+
+python\深拷贝
+	import copy
+	decode_target=copy.deepcopy(batch_target)
 	
 	
 	
